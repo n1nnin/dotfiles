@@ -1,0 +1,11 @@
+# main view の左端にコミットIDを表示する
+set main-view = id date author:email-user commit-title:graph=yes,refs=yes
+#
+set refs-view  = line-number:yes,interval=1 date:display=default,local=yes ref:true
+#
+set refresh-mode = auto
+
+# 差分の前後の表示行数（diff-context)を指定 
+set diff-context = 6
+
+
