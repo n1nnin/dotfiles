@@ -1,6 +1,10 @@
+#補完
 autoload -U compinit && compinit
 setopt prompt_subst
+setopt share_history
 zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin
+#普通の補完 + スペルミス補正
+zstyle ':completion:*' completer _complete _approximate
 
 bindkey -e
 
@@ -22,7 +26,6 @@ zle -N history-beginning-search-forward-end history-search-end
 bindkey "^p" history-beginning-search-backward-end
 bindkey "^n" history-beginning-search-forward-end
 
-setopt share_history
 fpath=(/usr/local/share/zsh-completions $fpath)
 export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 export PATH="$HOME/.rbenv/bin:$PATH"
@@ -91,13 +94,7 @@ propen() {
       git config --get remote.origin.url | sed -e "s/^.*[:\/]\(.*\/.*\).git$/http:\/\/github.lo.mixi.jp\/\1\//" | sed -e "s/$/pull\/${current_branch_name}/" | xargs open
 }
 
-
 tmux_automatically_attach_session
-#if is_osx; then
-#  PROMPT="$ "
-#else
-#  PROMPT="%{${fg[magenta]}%}%n$ %{${reset_color}%}"
-#fi
 
 HISTSIZE=100000
 SAVEHIST=100000
