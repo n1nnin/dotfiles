@@ -1,10 +1,10 @@
-RPROMPT="%{${fg[blue]}%}[%~]%{${reset_color}%}"
 autoload -U compinit && compinit
 setopt prompt_subst
 zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin
 
 bindkey -e
 
+#alias
 alias ls='ls -GF'
 alias cd="cdls"
 alias rm='rm -i'
@@ -14,7 +14,6 @@ alias vi='vim'
 alias t='tmux'
 alias ks='t kill-session'
 alias list='t list-session'
-
 
 cdls () { \cd "$@" && ls }
 autoload -U history-search-end
@@ -94,11 +93,11 @@ propen() {
 
 
 tmux_automatically_attach_session
-if is_osx; then
-  PROMPT="$ "
-else
-  PROMPT="%{${fg[magenta]}%}%n$ %{${reset_color}%}"
-fi
+#if is_osx; then
+#  PROMPT="$ "
+#else
+#  PROMPT="%{${fg[magenta]}%}%n$ %{${reset_color}%}"
+#fi
 
 HISTSIZE=100000
 SAVEHIST=100000
