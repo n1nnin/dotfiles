@@ -1,10 +1,9 @@
 RPROMPT="%{${fg[blue]}%}[%~]%{${reset_color}%}"
-autoload -U compinit
+autoload -U compinit && compinit
 setopt prompt_subst
 zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin
 
 bindkey -e
-
 
 alias ls='ls -GF'
 alias cd="cdls"
@@ -25,8 +24,6 @@ bindkey "^p" history-beginning-search-backward-end
 bindkey "^n" history-beginning-search-forward-end
 
 setopt share_history
-
-export PATH=/usr/local:$PATH
 fpath=(/usr/local/share/zsh-completions $fpath)
 export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 export PATH="$HOME/.rbenv/bin:$PATH"
@@ -36,7 +33,6 @@ export ANDROID_HOME=/Users/kazuki.hattori/Library/Android/sdk
 export PATH=$PATH:${ANDROID_HOME}/platforms:${ANDROID_HOME}/tools
 export PATH=$PATH:${ANDROID_HOME}/platform-tools
 export PATH="$HOME/Library/Python/2.7/bin:$PATH"
-
 export LANG=ja_JP.UTF-8
 
 function is_exists() { type "$1" >/dev/null 2>&1; return $?; }
@@ -52,15 +48,6 @@ function tmux_automatically_attach_session()
     if is_screen_or_tmux_running; then
         ! is_exists 'tmux' && return 1
 
-        if is_tmux_runnning; then
-            echo "${fg_bold[red]} _____ __  __ _   ___  __ ${reset_color}"
-            echo "${fg_bold[red]}|_   _|  \/  | | | \ \/ / ${reset_color}"
-            echo "${fg_bold[red]}  | | | |\/| | | | |\  /  ${reset_color}"
-            echo "${fg_bold[red]}  | | | |  | | |_| |/  \  ${reset_color}"
-            echo "${fg_bold[red]}  |_| |_|  |_|\___//_/\_\ ${reset_color}"
-        elif is_screen_running; then
-            echo "This is on screen."
-        fi
     else
         if shell_has_started_interactively && ! is_ssh_running; then
             if ! is_exists 'tmux'; then
@@ -117,5 +104,6 @@ HISTSIZE=100000
 SAVEHIST=100000
 
 export PATH=$HOME/.nodebrew/current/bin:$PATH
+export PATH=$HOME/google-cloud-sdk/bin:$PATH
 
 . $HOME/Library/Python/2.7/lib/python/site-packages/powerline/bindings/zsh/powerline.zsh
