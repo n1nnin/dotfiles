@@ -1,11 +1,12 @@
-#補完
+# 補完
 autoload -U compinit && compinit
 setopt prompt_subst
 setopt share_history
 zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin
-#普通の補完 + スペルミス補正
+# 普通の補完 + スペルミス補正
 zstyle ':completion:*' completer _complete _approximate
 
+# emacsのキーバインド 
 bindkey -e
 
 #alias
@@ -19,7 +20,7 @@ alias t='tmux'
 alias ks='t kill-session'
 alias list='t list-session'
 
-cdls () { \cd "$@" && ls }
+function cdls () { \cd "$@" && ls }
 autoload -U history-search-end
 zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
