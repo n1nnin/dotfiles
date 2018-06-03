@@ -3,6 +3,7 @@ autoload -U compinit && compinit
 setopt prompt_subst
 setopt share_history
 zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin
+
 # 普通の補完 + スペルミス補正
 zstyle ':completion:*' completer _complete _approximate
 
@@ -20,7 +21,7 @@ alias t='tmux'
 alias ks='t kill-session'
 alias list='t list-session'
 
-function cdls () { \cd "$@" && ls }
+# コマンド履歴
 autoload -U history-search-end
 zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
@@ -37,7 +38,17 @@ export PATH=$PATH:${ANDROID_HOME}/platforms:${ANDROID_HOME}/tools
 export PATH=$PATH:${ANDROID_HOME}/platform-tools
 export PATH="$HOME/Library/Python/2.7/bin:$PATH"
 export LANG=ja_JP.UTF-8
+export PATH=$HOME/.nodebrew/current/bin:$PATH
+export PATH=$HOME/google-cloud-sdk/bin:$PATH
 
+
+HISTSIZE=100000
+SAVEHIST=100000
+
+. $HOME/Library/Python/2.7/lib/python/site-packages/powerline/bindings/zsh/powerline.zsh
+
+# 関数
+function cdls () { \cd "$@" && ls }
 function is_exists() { type "$1" >/dev/null 2>&1; return $?; }
 function is_osx() { [[ $OSTYPE == darwin* ]]; }
 function is_screen_running() { [ ! -z "$STY" ]; }
@@ -90,17 +101,9 @@ function tmux_automatically_attach_session()
     fi
 }
 
-propen() {
+function propen() {
       local current_branch_name=$(git symbolic-ref --short HEAD | xargs perl -MURI::Escape -e 'print uri_escape($ARGV[0]);')
       git config --get remote.origin.url | sed -e "s/^.*[:\/]\(.*\/.*\).git$/http:\/\/github.lo.mixi.jp\/\1\//" | sed -e "s/$/pull\/${current_branch_name}/" | xargs open
 }
 
 tmux_automatically_attach_session
-
-HISTSIZE=100000
-SAVEHIST=100000
-
-export PATH=$HOME/.nodebrew/current/bin:$PATH
-export PATH=$HOME/google-cloud-sdk/bin:$PATH
-
-. $HOME/Library/Python/2.7/lib/python/site-packages/powerline/bindings/zsh/powerline.zsh
