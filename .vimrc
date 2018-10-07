@@ -1,11 +1,11 @@
 if &compatible
   set nocompatible
 endif
-set runtimepath+=/Users/kazuki.hattori/.cache/dein/repos/github.com/Shougo/dein.vim
-if dein#load_state('/Users/kazuki.hattori/.cache/dein')
-  call dein#begin('/Users/kazuki.hattori/.cache/dein')
+set runtimepath+=$HOME/.cache/dein/repos/github.com/Shougo/dein.vim
+if dein#load_state('$HOME/.cache/dein')
+  call dein#begin('$HOME/.cache/dein')
 
-  call dein#add('/Users/kazuki.hattori/.cache/dein/repos/github.com/Shougo/dein.vim')
+  call dein#add('$HOME/.cache/dein/repos/github.com/Shougo/dein.vim')
 
   call dein#add('scrooloose/nerdtree')
   call dein#add('nathanaelkane/vim-indent-guides')
