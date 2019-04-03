@@ -16,7 +16,8 @@ alias cd="cdls"
 alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
-alias vi='vim'
+alias vi='nvim'
+alias vim='nvim'
 alias t='tmux'
 alias ks='t kill-session'
 alias list='t list-session'
@@ -40,8 +41,12 @@ export PATH="$HOME/Library/Python/2.7/bin:$PATH"
 export LANG=ja_JP.UTF-8
 export PATH=$HOME/.nodebrew/current/bin:$PATH
 export PATH=$HOME/google-cloud-sdk/bin:$PATH
-
-
+export DANGER_GITHUB_HOST=https://github.com/
+export DANGER_GITHUB_API_BASE_URL=https://github.com/api/v3/
+export DANGER_OCTOKIT_VERIFY_SSL=true
+export DANGER_GITHUB_API_TOKEN={}
+export HOMEBREW_GITHUB_API_TOKEN=59a507caa58bb70d6e613a20e5566eb03a33ace3
+export XDG_CONFIG_HOME=$HOME/.config
 HISTSIZE=100000
 SAVEHIST=100000
 
