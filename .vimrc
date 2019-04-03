@@ -7,13 +7,16 @@ if dein#load_state('$HOME/.cache/dein')
 
   call dein#add('$HOME/.cache/dein/repos/github.com/Shougo/dein.vim')
 
+  call dein#add('Shougo/deoplete.nvim')
   call dein#add('scrooloose/nerdtree')
   call dein#add('nathanaelkane/vim-indent-guides')
   call dein#add('Yggdroot/indentLine')
   call dein#add('ngmy/vim-rubocop')
   call dein#add('scrooloose/syntastic')
+  call dein#add('gorodinskiy/vim-coloresque')
   call dein#end()
   call dein#save_state()
+
 endif
 
 filetype plugin indent on
