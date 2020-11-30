@@ -3,6 +3,7 @@ autoload -U compinit && compinit
 setopt prompt_subst
 setopt share_history
 zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin
+powerline-daemon -q
 
 # 普通の補完 + スペルミス補正
 zstyle ':completion:*' completer _complete _approximate
@@ -21,6 +22,11 @@ alias vim='nvim'
 alias t='tmux'
 alias ks='t kill-session'
 alias list='t list-session'
+alias python='python3'
+alias pip='pip3'
+alias dart='fvm dart'
+alias flutter='fvm flutter'
+alias icat="kitty +kitten icat"
 
 # コマンド履歴
 autoload -U history-search-end
@@ -30,13 +36,16 @@ bindkey "^p" history-beginning-search-backward-end
 bindkey "^n" history-beginning-search-forward-end
 
 fpath=(/usr/local/share/zsh-completions $fpath)
+export PATH=~/.local/bin:$PATH
 export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init - zsh)"
 export PATH=/usr/local/mecab/bin:$PATH
-export ANDROID_HOME=/Users/kazuki.hattori/Library/Android/sdk
+export ANDROID_HOME=$HOME/Library/Android/sdk
 export PATH=$PATH:${ANDROID_HOME}/platforms:${ANDROID_HOME}/tools
 export PATH=$PATH:${ANDROID_HOME}/platform-tools
+export PATH=$PATH:$HOME/Applications/"Android Studio.app"/Contents/jbr/Contents/Home/bin
+export JAVA_HOME=$HOME/Applications/"Android Studio.app"/Contents/jbr/Contents/Home
 export PATH="$HOME/Library/Python/2.7/bin:$PATH"
 export LANG=ja_JP.UTF-8
 export PATH=$HOME/.nodebrew/current/bin:$PATH
@@ -50,7 +59,7 @@ export XDG_CONFIG_HOME=$HOME/.config
 HISTSIZE=100000
 SAVEHIST=100000
 
-. $HOME/Library/Python/2.7/lib/python/site-packages/powerline/bindings/zsh/powerline.zsh
+. /Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/powerline/bindings/zsh/powerline.zsh
 
 # 関数
 function cdls () { \cd "$@" && ls }
@@ -62,53 +71,19 @@ function is_screen_or_tmux_running() { is_screen_running || is_tmux_runnning; }
 function shell_has_started_interactively() { [ ! -z "$PS1" ]; }
 function is_ssh_running() { [ ! -z "$SSH_CONECTION" ]; }
 
-function tmux_automatically_attach_session()
-{
-    if is_screen_or_tmux_running; then
-        ! is_exists 'tmux' && return 1
-
-    else
-        if shell_has_started_interactively && ! is_ssh_running; then
-            if ! is_exists 'tmux'; then
-                echo 'Error: tmux command not found' 2>&1
-                return 1
-            fi
-
-            if tmux has-session >/dev/null 2>&1 && tmux list-sessions | grep -qE '.*]$'; then
-                # detached session exists
-                tmux list-sessions
-                echo -n "Tmux: attach? (y/N/num) "
-                read
-                if [[ "$REPLY" =~ ^[Yy]$ ]] || [[ "$REPLY" == '' ]]; then
-                    tmux attach-session
-                    if [ $? -eq 0 ]; then
-                        echo "$(tmux -V) attached session"
-                        return 0
-                    fi
-                elif [[ "$REPLY" =~ ^[0-9]+$ ]]; then
-                    tmux attach -t "$REPLY"
-                    if [ $? -eq 0 ]; then
-                        echo "$(tmux -V) attached session"
-                        return 0
-                    fi
-                fi
-            fi
-
-            if is_osx && is_exists 'reattach-to-user-namespace'; then
-                # on OS X force tmux's default command
-                # to spawn a shell in the user's namespace
-                tmux_config=$(cat $HOME/.tmux.conf <(echo 'set-option -g default-command "reattach-to-user-namespace -l $SHELL"'))
-                tmux -f <(echo "$tmux_config") new-session && echo "$(tmux -V) created new session supported OS X"
-            else
-                tmux new-session && echo "tmux created new session"
-            fi
-        fi
-    fi
-}
-
-function propen() {
-      local current_branch_name=$(git symbolic-ref --short HEAD | xargs perl -MURI::Escape -e 'print uri_escape($ARGV[0]);')
-      git config --get remote.origin.url | sed -e "s/^.*[:\/]\(.*\/.*\).git$/http:\/\/github.lo.mixi.jp\/\1\//" | sed -e "s/$/pull\/${current_branch_name}/" | xargs open
-}
-
-tmux_automatically_attach_session
+#function powerline_precmd() {
+#    PS1="$(powerline-shell --shell zsh $?)"
+#}
+#
+#function install_powerline_precmd() {
+#  for s in "${precmd_functions[@]}"; do
+#    if [ "$s" = "powerline_precmd" ]; then
+#      return
+#    fi
+#  done
+#  precmd_functions+=(powerline_precmd)
+#}
+#
+#if [ "$TERM" != "linux" -a -x "$(command -v powerline-shell)" ]; then
+#    install_powerline_precmd
+#fi

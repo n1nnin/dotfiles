@@ -1,0 +1,33 @@
+{
+	"segments": {
+		"left": [
+			{
+				"function": "powerline.segments.common.env.user",
+				"priority": 30
+			},
+			{
+				"function": "powerline.segments.common.sys.cpu_load_percent",
+        "before": "CPU:",
+				"priority": 30
+			}
+		],
+		"right": [
+			{
+				"function": "powerline.segments.shell.last_pipe_status",
+				"priority": 10
+			},
+			{
+				"function": "powerline.segments.common.vcs.stash",
+				"priority": 20
+			},
+			{
+				"function": "powerline.segments.common.vcs.branch",
+				"priority": 30
+			},
+      {
+        "function":"powerline.segments.common.bat.battery",
+        "priority": 40
+      }
+		]
+	}
+}
