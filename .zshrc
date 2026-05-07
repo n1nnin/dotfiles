@@ -8,10 +8,10 @@ powerline-daemon -q
 # 普通の補完 + スペルミス補正
 zstyle ':completion:*' completer _complete _approximate
 
-# emacsのキーバインド 
+# emacsのキーバインド
 bindkey -e
 
-#alias
+# alias
 alias ls='ls -GF'
 alias cd="cdls"
 alias rm='rm -i'
@@ -27,6 +27,7 @@ alias pip='pip3'
 alias dart='fvm dart'
 alias flutter='fvm flutter'
 alias icat="kitty +kitten icat"
+alias litellm-usage="curl -s -H \"Authorization: Bearer \$LITELLM_API_KEY\" \"https://litellm.mercari.in/user/info\" | jq \".user_info | {spend, max_budget, ratio: (.spend / .max_budget * 100)}\""
 
 # コマンド履歴
 autoload -U history-search-end
@@ -40,26 +41,12 @@ export PATH=~/.local/bin:$PATH
 export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init - zsh)"
-export PATH=/usr/local/mecab/bin:$PATH
 export ANDROID_HOME=$HOME/Library/Android/sdk
-export PATH=$PATH:${ANDROID_HOME}/platforms:${ANDROID_HOME}/tools
-export PATH=$PATH:${ANDROID_HOME}/platform-tools
-export PATH=$PATH:$HOME/Applications/"Android Studio.app"/Contents/jbr/Contents/Home/bin
-export JAVA_HOME=$HOME/Applications/"Android Studio.app"/Contents/jbr/Contents/Home
-export PATH="$HOME/Library/Python/2.7/bin:$PATH"
+export PATH=$PATH:${ANDROID_HOME}/emulator:${ANDROID_HOME}/platforms:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
 export LANG=ja_JP.UTF-8
-export PATH=$HOME/.nodebrew/current/bin:$PATH
-export PATH=$HOME/google-cloud-sdk/bin:$PATH
-export DANGER_GITHUB_HOST=https://github.com/
-export DANGER_GITHUB_API_BASE_URL=https://github.com/api/v3/
-export DANGER_OCTOKIT_VERIFY_SSL=true
-export DANGER_GITHUB_API_TOKEN={}
-export HOMEBREW_GITHUB_API_TOKEN=REDACTED
 export XDG_CONFIG_HOME=$HOME/.config
 HISTSIZE=100000
 SAVEHIST=100000
-
-. /Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/powerline/bindings/zsh/powerline.zsh
 
 # 関数
 function cdls () { \cd "$@" && ls }
@@ -71,19 +58,7 @@ function is_screen_or_tmux_running() { is_screen_running || is_tmux_runnning; }
 function shell_has_started_interactively() { [ ! -z "$PS1" ]; }
 function is_ssh_running() { [ ! -z "$SSH_CONECTION" ]; }
 
-#function powerline_precmd() {
-#    PS1="$(powerline-shell --shell zsh $?)"
-#}
-#
-#function install_powerline_precmd() {
-#  for s in "${precmd_functions[@]}"; do
-#    if [ "$s" = "powerline_precmd" ]; then
-#      return
-#    fi
-#  done
-#  precmd_functions+=(powerline_precmd)
-#}
-#
-#if [ "$TERM" != "linux" -a -x "$(command -v powerline-shell)" ]; then
-#    install_powerline_precmd
-#fi
+eval "$(fnm env --use-on-cd --shell zsh)"
+
+# マシン固有の設定・シークレット（git管理外）
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
