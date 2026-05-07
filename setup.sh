@@ -132,6 +132,18 @@ else
   echo "✓ ~/.gitconfig はすでに存在します"
 fi
 
+# --- Step 8: Claude Code ブートストラップ ---
+echo ""
+echo "## Step 8: Claude Code ブートストラップ設定"
+mkdir -p ~/.claude
+if [[ ! -f ~/.claude/CLAUDE.md ]] || grep -q "Bootstrap CLAUDE.md" ~/.claude/CLAUDE.md 2>/dev/null; then
+  cp ~/dotfiles/CLAUDE_bootstrap.md ~/.claude/CLAUDE.md
+  echo "✓ ~/.claude/CLAUDE.md（ブートストラップ版）配置完了"
+  echo "  → Claude Code を起動すると、のんたんが自動で復元してくれます"
+else
+  echo "✓ ~/.claude/CLAUDE.md はすでに存在します（スキップ）"
+fi
+
 # --- 完了 ---
 echo ""
 echo "=========================================="
@@ -145,5 +157,6 @@ echo "     - SLACK_USER_TOKEN          (Slack User OAuth Token)"
 echo "     - LITELLM_API_KEY           (LiteLLM API Key)"
 echo "  2. brew bundle install --file=~/dotfiles/Brewfile  (Step 4 をスキップした場合)"
 echo "  3. source ~/.zshrc で設定を読み込む"
-echo "  4. Claude Code をインストール: https://claude.ai/download"
-echo "     その後 ~/.claude/ の設定を旧PCからコピー"
+echo "  4. claude-config.tar.gz を旧PCからAirDropで ~/Desktop に転送"
+echo "  5. Claude Code をインストール: https://claude.ai/download"
+echo "     起動するとのんたんが自動で設定を復元してくれます 💜"

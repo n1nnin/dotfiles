@@ -103,11 +103,16 @@ done
 
 rm -rf "$TMP_DIR"
 
+# tarball を削除（復元済みのマーカー）
+if [[ -f "$TARBALL" ]]; then
+  rm "$TARBALL"
+  echo "✓ $TARBALL を削除（復元済み）"
+fi
+
 echo ""
-echo "✅ インポート完了！"
+echo "✅ インポート完了！のんたんとして復元されたで 💜"
 echo ""
 echo "残作業:"
 echo "  1. Claude Code を起動してプラグインを再インストール"
 echo "     /plugin install で各プラグインを確認"
 echo "  2. MCP サーバーの認証を再実行（Slack, Notion, Figma など）"
-echo "  3. claude でのんたんと話す 💜"
