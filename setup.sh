@@ -69,6 +69,27 @@ echo "## Step 5: シンボリックリンク作成"
 ln -sf ~/dotfiles/.zshrc ~/.zshrc
 echo "✓ ~/.zshrc"
 
+ln -sf ~/dotfiles/.zprofile ~/.zprofile
+echo "✓ ~/.zprofile"
+
+# .zprofile.local（マシン固有パス）テンプレート
+if [[ ! -f ~/.zprofile.local ]]; then
+  cat > ~/.zprofile.local << 'PROFILEEOF'
+# マシン固有の設定 — git管理外
+
+# JetBrains Toolbox（インストール後に有効化）
+# export PATH="$PATH:$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
+
+# Python framework（インストール後に有効化）
+# PATH="/Library/Frameworks/Python.framework/Versions/3.13/bin:${PATH}"
+# export PATH
+
+# Obsidian
+export PATH="$PATH:/Applications/Obsidian.app/Contents/MacOS"
+PROFILEEOF
+  echo "✓ ~/.zprofile.local 作成"
+fi
+
 mkdir -p ~/.config
 for dir in karabiner kitty lazygit nvim powerline powerline-shell; do
   if [[ -d ~/dotfiles/.config/$dir ]]; then
@@ -150,13 +171,34 @@ echo "=========================================="
 echo "  セットアップ完了！"
 echo "=========================================="
 echo ""
-echo "残作業:"
-echo "  1. ~/.zshrc.local のトークンを設定"
-echo "     - HOMEBREW_GITHUB_API_TOKEN (GitHub PAT: repo, read:packages)"
-echo "     - SLACK_USER_TOKEN          (Slack User OAuth Token)"
-echo "     - LITELLM_API_KEY           (LiteLLM API Key)"
-echo "  2. brew bundle install --file=~/dotfiles/Brewfile  (Step 4 をスキップした場合)"
-echo "  3. source ~/.zshrc で設定を読み込む"
-echo "  4. claude-config.tar.gz を旧PCからAirDropで ~/Desktop に転送"
-echo "  5. Claude Code をインストール: https://claude.ai/download"
-echo "     起動するとのんたんが自動で設定を復元してくれます 💜"
+echo "残作業チェックリスト:"
+echo ""
+echo "【トークン設定】"
+echo "  [ ] ~/.zshrc.local に以下を設定"
+echo "      - HOMEBREW_GITHUB_API_TOKEN (GitHub PAT: repo, read:packages)"
+echo "      - SLACK_USER_TOKEN          (Slack User OAuth Token)"
+echo "      - LITELLM_API_KEY           (LiteLLM API Key)"
+echo "  [ ] ~/.npmrc を作成（GitHub PAT + JFrog token を新規発行）"
+echo ""
+echo "【認証】"
+echo "  [ ] gh auth login                  (GitHub CLI)"
+echo "  [ ] gcloud auth login              (Google Cloud)"
+echo "  [ ] gcloud auth application-default login"
+echo ""
+echo "【Claude Code】"
+echo "  [ ] claude-config.tar.gz を旧PCからAirDropで ~/Desktop に転送"
+echo "  [ ] Claude Code をインストール: https://claude.ai/download"
+echo "      起動するとのんたんが自動で設定を復元してくれます 💜"
+echo "  [ ] Claude Code 起動後、各MCPサーバーを再認証"
+echo "      (Slack / Notion / Atlassian / Google Drive / Testrail)"
+echo ""
+echo "【開発環境】"
+echo "  [ ] rbenv install <version>        (必要なRubyバージョン)"
+echo "  [ ] fnm install --lts              (Node.js LTS)"
+echo "  [ ] JetBrains Toolbox を手動インストール"
+echo "      その後 ~/.zprofile.local の該当行をコメントアウト解除"
+echo "  [ ] Xcode を App Store からインストール（iOS開発の場合）"
+echo "  [ ] Android Studio を手動インストール（Android開発の場合）"
+echo ""
+echo "【シェル設定の反映】"
+echo "  source ~/.zshrc && source ~/.zprofile"
