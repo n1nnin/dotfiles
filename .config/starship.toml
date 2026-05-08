@@ -4,10 +4,10 @@
 format = """
 [](fg:#5c6370)\
 [$directory](bg:#5c6370 fg:#ffffff)\
-[](fg:#5c6370 bg:#4e80b8)\
+[](fg:#5c6370 bg:#9b59b6)\
 $git_branch\
 $git_status\
-[](fg:#4e80b8 bg:#3e4451)\
+[](fg:#9b59b6 bg:#3e4451)\
 $python\
 $nodejs\
 $golang\
@@ -25,12 +25,12 @@ truncation_symbol = "…/"
 # Git ブランチ
 [git_branch]
 symbol = " "
-style = "bg:#4e80b8 fg:#ffffff"
+style = "bg:#9b59b6 fg:#ffffff"
 format = "[ $symbol$branch ]($style)"
 
 # Git ステータス
 [git_status]
-style = "bg:#4e80b8 fg:#ffcb6b"
+style = "bg:#9b59b6 fg:#ffcb6b"
 format = "[$all_status$ahead_behind]($style)"
 ahead = "⇡${count}"
 behind = "⇣${count}"
