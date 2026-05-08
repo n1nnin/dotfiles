@@ -71,6 +71,31 @@ error_symbol = "[❯](bold red)"
 min_time = 2_000
 format = "[ took $duration](fg:#888888) "
 
+# 時刻（右側プロンプト）
+right_format = """$battery$time"""
+
+[time]
+disabled = false
+style = "fg:#888888"
+format = "[$time]($style)"
+time_format = "%H:%M"
+
+# バッテリー（20%以下 or 充電中のみ表示）
+[battery]
+full_symbol = "🔋"
+charging_symbol = "⚡"
+discharging_symbol = "🔋"
+format = "[$symbol$percentage]($style) "
+
+[[battery.display]]
+threshold = 20
+style = "bold red"
+
+[[battery.display]]
+threshold = 50
+style = "yellow"
+discharging_symbol = "🔋"
+
 # 不要なモジュールを非表示
 [package]
 disabled = true
