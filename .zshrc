@@ -3,7 +3,7 @@ autoload -U compinit && compinit
 setopt prompt_subst
 setopt share_history
 zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin
-powerline-daemon -q
+command -v powerline-daemon &>/dev/null && powerline-daemon -q
 
 # 普通の補完 + スペルミス補正
 zstyle ':completion:*' completer _complete _approximate
