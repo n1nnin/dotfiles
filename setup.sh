@@ -20,7 +20,8 @@ if [[ ! -f ~/.ssh/id_ed25519 ]]; then
   echo ""
   cat ~/.ssh/id_ed25519.pub
   echo ""
-  read "?GitHub に登録したら Enter を押してください..."
+  echo -n "GitHub に登録したら Enter を押してください..."
+  read
 else
   echo "✓ SSH鍵はすでに存在します"
 fi
@@ -55,7 +56,8 @@ echo "## Step 4: Homebrew パッケージインストール"
 echo "注意: kouzoh/tap のインストールには HOMEBREW_GITHUB_API_TOKEN が必要です"
 echo "      ~/.zshrc.local に設定後、手動で 'brew bundle install --file=~/dotfiles/Brewfile' を実行してください"
 echo ""
-read "run_brew?今すぐ実行しますか？ (y/N): "
+echo -n "今すぐ実行しますか？ (y/N): "
+read run_brew
 if [[ "$run_brew" =~ ^[Yy]$ ]]; then
   brew bundle install --file=~/dotfiles/Brewfile || {
     echo ""
