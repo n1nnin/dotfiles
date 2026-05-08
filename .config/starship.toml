@@ -72,7 +72,7 @@ min_time = 2_000
 format = "[ took $duration](fg:#888888) "
 
 # 時刻（右側プロンプト）
-right_format = """$battery$time"""
+right_format = """$memory_usage$battery$time"""
 
 [time]
 disabled = false
@@ -95,6 +95,14 @@ style = "bold red"
 threshold = 50
 style = "yellow"
 discharging_symbol = "🔋"
+
+# メモリ使用量（右側、75%以上で表示）
+[memory_usage]
+disabled = false
+threshold = 75
+symbol = "󰍛 "
+style = "fg:#888888"
+format = "[$symbol$ram_pct]($style) "
 
 # 不要なモジュールを非表示
 [package]
