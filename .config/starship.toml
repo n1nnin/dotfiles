@@ -80,7 +80,7 @@ style = "fg:#888888"
 format = "[$time]($style)"
 time_format = "%H:%M"
 
-# バッテリー（20%以下 or 充電中のみ表示）
+# バッテリー（常時表示）
 [battery]
 full_symbol = "🔋"
 charging_symbol = "⚡"
@@ -94,12 +94,15 @@ style = "bold red"
 [[battery.display]]
 threshold = 50
 style = "yellow"
-discharging_symbol = "🔋"
+
+[[battery.display]]
+threshold = 100
+style = "fg:#888888"
 
 # メモリ使用量（右側、75%以上で表示）
 [memory_usage]
 disabled = false
-threshold = 75
+threshold = -1
 symbol = "󰍛 "
 style = "fg:#888888"
 format = "[$symbol$ram_pct]($style) "
