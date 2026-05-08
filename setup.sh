@@ -57,7 +57,13 @@ echo "      ~/.zshrc.local に設定後、手動で 'brew bundle install --file=
 echo ""
 read "run_brew?今すぐ実行しますか？ (y/N): "
 if [[ "$run_brew" =~ ^[Yy]$ ]]; then
-  brew bundle install --file=~/dotfiles/Brewfile
+  brew bundle install --file=~/dotfiles/Brewfile || {
+    echo ""
+    echo "⚠️  一部のパッケージのインストールに失敗しました"
+    echo "   kouzoh/tap は HOMEBREW_GITHUB_API_TOKEN 設定後に再実行してください:"
+    echo "   brew bundle install --file=~/dotfiles/Brewfile"
+    echo "   （セットアップは続行します）"
+  }
 else
   echo "スキップしました（後で実行: brew bundle install --file=~/dotfiles/Brewfile）"
 fi
