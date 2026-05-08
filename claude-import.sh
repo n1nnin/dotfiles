@@ -23,7 +23,8 @@ if ! command -v claude &>/dev/null; then
   echo "⚠️  Claude Code がインストールされていません"
   echo "   https://claude.ai/download からインストールしてください"
   echo ""
-  read "continue?Claude Code なしで続行しますか？ (y/N): "
+  echo -n "Claude Code なしで続行しますか？ (y/N): "
+  read continue
   [[ "$continue" =~ ^[Yy]$ ]] || exit 1
 fi
 
@@ -37,6 +38,12 @@ TMP_DIR=$(mktemp -d)
 tar -xzf "$TARBALL" -C "$TMP_DIR"
 
 SRC="$TMP_DIR/.claude"
+
+# ~/.claude.json（MCPサーバー設定）
+if [[ -f "$TMP_DIR/.claude.json" ]]; then
+  cp "$TMP_DIR/.claude.json" "$HOME/.claude.json"
+  echo "✓ ~/.claude.json (MCP設定)"
+fi
 
 # settings.json（statusLine の壊れた参照を除去して配置）
 if [[ -f "$SRC/settings.json" ]]; then

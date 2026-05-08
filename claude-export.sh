@@ -12,6 +12,7 @@ echo ""
 
 # エクスポート対象のファイル・ディレクトリ
 INCLUDES=(
+  "$HOME/.claude.json"
   "$CLAUDE_DIR/CLAUDE.md"
   "$CLAUDE_DIR/settings.json"
   "$CLAUDE_DIR/nontan-notification.sh"
