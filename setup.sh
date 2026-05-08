@@ -105,6 +105,10 @@ for dir in karabiner kitty lazygit nvim powerline powerline-shell; do
   fi
 done
 
+# starship (single file symlink)
+ln -sf ~/dotfiles/.config/starship.toml ~/.config/starship.toml
+echo "✓ ~/.config/starship.toml"
+
 # --- Step 6: .zshrc.local ---
 echo ""
 echo "## Step 6: ~/.zshrc.local 作成（シークレット用）"

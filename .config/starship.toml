@@ -1,0 +1,76 @@
+# Powerline-style Starship config
+# Requires Nerd Font (Hack Nerd Font)
+
+format = """
+[](fg:#5c6370)\
+[$directory](bg:#5c6370 fg:#ffffff)\
+[](fg:#5c6370 bg:#4e80b8)\
+$git_branch\
+$git_status\
+[](fg:#4e80b8 bg:#3e4451)\
+$python\
+$nodejs\
+$golang\
+$ruby\
+[](fg:#3e4451)\
+$character"""
+
+# ディレクトリ
+[directory]
+style = "bg:#5c6370 fg:#ffffff"
+format = "[ $path ]($style)"
+truncation_length = 4
+truncation_symbol = "…/"
+
+# Git ブランチ
+[git_branch]
+symbol = " "
+style = "bg:#4e80b8 fg:#ffffff"
+format = "[ $symbol$branch ]($style)"
+
+# Git ステータス
+[git_status]
+style = "bg:#4e80b8 fg:#ffcb6b"
+format = "[$all_status$ahead_behind]($style)"
+ahead = "⇡${count}"
+behind = "⇣${count}"
+diverged = "⇕⇡${ahead_count}⇣${behind_count}"
+modified = "!${count}"
+staged = "+${count}"
+untracked = "?${count}"
+deleted = "✘${count}"
+
+# 言語バージョン表示
+[python]
+symbol = " "
+style = "bg:#3e4451 fg:#ffcb6b"
+format = "[ $symbol$version ]($style)"
+
+[nodejs]
+symbol = " "
+style = "bg:#3e4451 fg:#c3e88d"
+format = "[ $symbol$version ]($style)"
+
+[golang]
+symbol = " "
+style = "bg:#3e4451 fg:#89ddff"
+format = "[ $symbol$version ]($style)"
+
+[ruby]
+symbol = " "
+style = "bg:#3e4451 fg:#f07178"
+format = "[ $symbol$version ]($style)"
+
+# プロンプト文字
+[character]
+success_symbol = "[❯](bold green)"
+error_symbol = "[❯](bold red)"
+
+# コマンド実行時間
+[cmd_duration]
+min_time = 2_000
+format = "[ took $duration](fg:#888888) "
+
+# 不要なモジュールを非表示
+[package]
+disabled = true
