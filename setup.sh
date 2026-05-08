@@ -99,6 +99,7 @@ fi
 mkdir -p ~/.config
 for dir in karabiner kitty lazygit nvim powerline powerline-shell; do
   if [[ -d ~/dotfiles/.config/$dir ]]; then
+    rm -rf ~/.config/$dir
     ln -sfn ~/dotfiles/.config/$dir ~/.config/$dir
     echo "✓ ~/.config/$dir"
   fi
